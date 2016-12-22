@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ConsoleMenu-choice</id>
+    <version>1.0.1</version>
+    <authors>Jeferson Tenorio</authors>
+    <owners></owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/jefersonsv/ConsoleMenu</projectUrl>
+    <iconUrl>http://www.freeiconspng.com/uploads/menu-icon-4.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Console menu system with keyborad arrows and mouse selection</description>
+    <releaseNotes>Initial version</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>console menu prompt</tags>
+  </metadata>
+</package>
