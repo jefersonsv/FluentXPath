@@ -4,7 +4,8 @@
 Build query XPath with fluent style code
 
 ## Thanks to
-- [w3schools](http://www.w3schools.com/xml/xpath_syntax.asp)
 - [Microsoft](https://msdn.microsoft.com/en-us/library/ms256086.aspx)
+- [Rawgit](https://rawgit.com/)
+- [w3schools](http://www.w3schools.com/xml/xpath_syntax.asp)
 - [Myself: Jeferson Tenorio](https://br.linkedin.com/in/jefersontenorio)
 - Thanks for all :smile:

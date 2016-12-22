@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
+<!-- https://docs.nuget.org/ndocs/schema/nuspec -->
 <package>
   <metadata>
-    <id>FluentXpath</id>
-    <version>1.0.0</version>
+    <id>FluentXPath</id>
+    <version>1.0.2</version>
     <authors>Jeferson Tenorio</authors>
     <owners></owners>
+    <iconUrl>https://cdn.rawgit.com/jefersonsv/FluentXPath/master/artifacts/logo.jpg</iconUrl>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/jefersonsv/FluentXPath</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
