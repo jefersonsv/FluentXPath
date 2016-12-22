@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
-<package >
+<package>
   <metadata>
-    <id>ConsoleMenu-choice</id>
-    <version>1.0.1</version>
+    <id>FluentXpath</id>
+    <version>1.0.0</version>
     <authors>Jeferson Tenorio</authors>
     <owners></owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>https://github.com/jefersonsv/ConsoleMenu</projectUrl>
-    <iconUrl>http://www.freeiconspng.com/uploads/menu-icon-4.png</iconUrl>
+    <projectUrl>https://github.com/jefersonsv/fluentxpath</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Console menu system with keyborad arrows and mouse selection</description>
+    <description>Build query XPath with fluent style code</description>
     <releaseNotes>Initial version</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>console menu prompt</tags>
+    <tags>xpath fluent fluentxpath</tags>
   </metadata>
 </package>
