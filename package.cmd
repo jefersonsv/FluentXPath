@@ -9,8 +9,8 @@ if not exist nuget\package\lib\4.5 mkdir nuget\package\lib\4.5
 
 REM Find msbuild
 REM reg.exe query "HKLM\SOFTWARE\Microsoft\MSBuild\ToolsVersions\4.0" /v MSBuildToolsPath
-C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild ConsoleMenu.sln -p:Configuration=Release
-copy ConsoleMenu\bin\Release\ConsoleMenu.dll nuget\package\lib\4.5\
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild FluentXPath.sln -p:Configuration=Release
+copy FluentXPath\bin\Release\FluentXPath.dll nuget\package\lib\4.5\
 
 nuget\nuget.exe pack nuget\package.nuspec -BasePath nuget\package -OutputDirectory nuget\
 

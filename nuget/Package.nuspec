@@ -6,7 +6,7 @@
     <authors>Jeferson Tenorio</authors>
     <owners></owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>https://github.com/jefersonsv/fluentxpath</projectUrl>
+    <projectUrl>https://github.com/jefersonsv/FluentXPath</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Build query XPath with fluent style code</description>
     <releaseNotes>Initial version</releaseNotes>
