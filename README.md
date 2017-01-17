@@ -3,7 +3,7 @@
 # Fluent XPath
 Build query XPath with fluent style code
 # Usage
-'''C#
+``` C#
 string xpath = new XPathBuilder()
 	.AllDescedentElements()
 	.Elements("div").WhereAttributeEquals("class", "line")
@@ -17,7 +17,7 @@ string xpath = new XPathBuilder()
 	.Elements("blockquote")
 	.Elements("font")
 	.Elements("a");
-'''
+```
 ## Thanks to
 - [Microsoft](https://msdn.microsoft.com/en-us/library/ms256086.aspx)
 - [Rawgit](https://rawgit.com/)
