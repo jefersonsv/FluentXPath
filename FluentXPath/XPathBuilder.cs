@@ -151,6 +151,13 @@ namespace FluentXPath
             return this;
         }
 
+        public XPathBuilder WhereInnerTextContains(string value)
+        {
+            var fmt = "[contains(text(), '{0}')]";
+            sb.Append(string.Format(fmt, value));
+            return this;
+        }
+
         public XPathBuilder WhereLast()
         {
             sb.Append("[last()]");

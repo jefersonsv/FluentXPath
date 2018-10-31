@@ -3,7 +3,7 @@
 <package>
   <metadata>
     <id>FluentXPath</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>Jeferson Tenorio</authors>
     <owners></owners>
     <iconUrl>https://cdn.rawgit.com/jefersonsv/FluentXPath/master/artifacts/logo.jpg</iconUrl>
