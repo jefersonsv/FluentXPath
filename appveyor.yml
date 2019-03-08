@@ -1,0 +1,48 @@
+image: Visual Studio 2017
+
+branches:
+  only:
+    - master
+
+skip_commits:
+  files:
+    - '**/*.md'
+    
+configuration:
+  - Release
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
+build:
+  verbosity: normal
+  publish_nuget: true
+ 
+before_build:
+  - nuget restore
+ 
+nuget:
+  account_feed: true
+  project_feed: true
+  
+artifacts:
+  - path: src\bin\$(configuration)
+    name: v$(appveyor_build_version)
+  
+environment:
+  GITHUB_TOKEN_CRYPTED:
+    secure: BI8CvihIl1X5UtJJ4aQn5yyO1v0rgga8iMqK9sZmm7s6qZQG+VNUKa5PDNhQrteN
+  NUGET_TOKEN_CRYPTED:
+    secure: El3Kj0SEU9/+Di2uXiCsTGlDWSjPcqXyO2drOT3XDGOp3rMdIX8zeXOBZLlOCQZw
+ 
+deploy:
+  provider: NuGet
+  api_key: $(NUGET_TOKEN_CRYPTED)
+  skip_symbols: false
+  artifact: /.*\.nupkg/

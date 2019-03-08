@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentXPath", "FluentXPath\FluentXPath.csproj", "{CEA91704-F7AB-4D02-96EA-4622CFE6E326}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentXPath", "FluentXPath\FluentXPath.csproj", "{CEA91704-F7AB-4D02-96EA-4622CFE6E326}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artifacts", "artifacts", "{E8B3C265-C977-45C1-89C9-4660AE9A78E7}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{31E86E56-AEC7-4C95-BECF-B8AF1D169DE0}"
 	ProjectSection(SolutionItems) = preProject
-		nuget\Package.nuspec = nuget\Package.nuspec
+		nuget\Package.nuspec.old = nuget\Package.nuspec.old
 	EndProjectSection
 EndProject
 Global
@@ -35,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63B340A5-F44A-47E5-B3F4-45B85B50F8B0}
 	EndGlobalSection
 EndGlobal
