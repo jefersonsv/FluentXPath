@@ -32,7 +32,7 @@ nuget:
   project_feed: true
   
 artifacts:
-  - path: src\bin\$(configuration)
+  - path: src\bin\$(configuration)\netstandard2.0
     name: v$(appveyor_build_version)
   
 environment:
