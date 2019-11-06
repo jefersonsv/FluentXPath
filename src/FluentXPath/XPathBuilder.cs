@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FluentXPath
 {
@@ -14,177 +11,246 @@ namespace FluentXPath
     {
         private StringBuilder sb = new StringBuilder();
 
+        private XPathBuilder Append(string value)
+        {
+            sb.Append(value); return this;
+        }
+
+        /// <summary>
+        /// Creates a new instance of an XPathBuilder.
+        /// </summary>
         public XPathBuilder()
         {
             sb = new StringBuilder();
         }
 
-        public static implicit operator string(XPathBuilder builder)
+        /// <summary>
+        /// Creates a new instance of an XPathBuilder from an existing XPathBuilder.
+        /// </summary>
+        public XPathBuilder(XPathBuilder builder)
         {
-            return builder.ToString();
-        }
-
-        public XPathBuilder AllChildElements()
-        {
-            sb.Append("/*");
-            return this;
-        }
-
-        public XPathBuilder AllComments()
-        {
-            sb.Append("//comment()");
-            return this;
-        }
-
-        public XPathBuilder AllDescedentElements()
-        {
-            sb.Append("//*");
-            return this;
-        }
-
-        public XPathBuilder Attributes(string attributeName)
-        {
-            sb.Append("/@" + attributeName);
-            return this;
-        }
-
-        public XPathBuilder Elements(string element)
-        {
-            sb.Append("/" + element);
-            return this;
-        }
-
-        public XPathBuilder ElementsAtLeastAnyAttribute(string element)
-        {
-            var fmt = "/{0}[@*]";
-            sb.Append(string.Format(fmt, element));
-            return this;
-        }
-
-        public XPathBuilder ElementsDescend(string element)
-        {
-            sb.Append("//" + element);
-            return this;
-        }
-
-        public XPathBuilder First()
-        {
-            sb.Append("[1]");
-            return this;
-        }
-
-        public XPathBuilder First(int number)
-        {
-            if (number < 1)
-                throw new Exception("The number need to be greaten 0");
-            sb.Append("[position()<" + (number + 1) + "]");
-            return this;
-        }
-
-        public XPathBuilder Index(int index)
-        {
-            sb.Append("[" + index + "]");
-            return this;
-        }
-
-        public XPathBuilder InnerText()
-        {
-            sb.Append("/text()");
-            return this;
-        }
-
-        public XPathBuilder Or()
-        {
-            sb.Append("|");
-            return this;
+            sb = new StringBuilder().Append(builder.sb);
         }
 
         /// <summary>
-        /// Selects the parent of the current node
+        /// Creates a new instance of an XPathBuilder from the specified XPath string.
         /// </summary>
-        /// <returns></returns>
-        public XPathBuilder Parent()
+        public XPathBuilder(string xpath)
         {
-            sb.Append("/..");
-            return this;
+            sb = new StringBuilder().Append(xpath);
         }
 
-        public override string ToString()
+        /// <summary>
+        /// Implicit conversion to string.
+        /// </summary>
+        public static implicit operator string(XPathBuilder builder) => builder.ToString();
+
+        /// <summary>
+        /// Builds the XPath string.
+        /// </summary>
+        /// <returns>The XPath string.</returns>
+        public override string ToString() => sb.ToString();
+
+        #region General
+        /// <summary>
+        /// Selects all immediate child elements.
+        /// </summary>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder AllChildElements() => Append("/*");
+
+        /// <summary>
+        /// Selects all comments.
+        /// </summary>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder AllComments() => Append("//comment()");
+
+        /// <summary>
+        /// Selects all descedent elements.
+        /// </summary>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder AllDescedentElements() => Append("//*");
+
+        /// <summary>
+        /// Selects the inner text of current node.
+        /// </summary>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder InnerText() => Append("/text()");
+
+        /// <summary>
+        /// Selects the parent of the current node.
+        /// </summary>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder Parent() => Append("/..");
+
+        /// <summary>
+        /// Adds an or condition to allow for multiple matching nodes.
+        /// </summary>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder Or() => Append("|");
+        #endregion
+
+        #region Elements
+        /// <summary>
+        /// Selects immediate matching elements.
+        /// </summary>
+        /// <param name="element">The element to select.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder Elements(string element) => Append($"/{element}");
+
+        /// <summary>
+        /// Selects immediate matching elements that have an attribute of some kind.
+        /// </summary>
+        /// <param name="element">The element to select.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder ElementsAtLeastAnyAttribute(string element) => Append($"/{element}[@*]");
+
+        /// <summary>
+        /// Selects descending elements no matter where they are in the decending element tree.
+        /// </summary>
+        /// <param name="element">The element to select.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder ElementsDescend(string element) => Append("//" + element);
+        #endregion
+
+        #region Attributes
+        /// <summary>
+        /// Selects all elements that include the specified attribute name.
+        /// </summary>
+        /// <param name="attributeName">The attribute name that matching elments should have.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder Attributes(string attributeName) => WhereAttributeHasValue(attributeName);
+
+        /// <summary>
+        /// Selects all elements that include the specified attribute name.
+        /// </summary>
+        /// <param name="attributeName">The attribute name that matching elments should have.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereAttributeHasValue(string attributeName) => Append($"/@{attributeName}");
+
+        /// <summary>
+        /// Selects elements where the given `attributeName` has the exact given `attributeValue`.
+        /// </summary>
+        /// <param name="attributeName">The attribute's name.</param>
+        /// <param name="attributeValue">The attribute's value.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereAttributeEquals(string attributeName, string attributeValue) => Append($"[@{attributeName}='{attributeValue}']");
+
+        /// <summary>
+        /// Selects elements where the given `attributeName` starts with the given `attributeValue`.
+        /// </summary>
+        /// <param name="attributeName">The attribute's name.</param>
+        /// <param name="attributeValue">The attribute's value.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereStartWith(string attributeName, string attributeValue) => WhereAttributeStartsWith(attributeName, attributeValue);
+
+        /// <summary>
+        /// Selects elements where the given `attributeName` starts with the given `attributeValue`.
+        /// </summary>
+        /// <param name="attributeName">The attribute's name.</param>
+        /// <param name="attributeValue">The attribute's value.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereAttributeStartsWith(string attributeName, string attributeValue) => Append($"[starts-with(@{attributeName}='{attributeValue}')])");
+
+        /// <summary>
+        /// Selects elements where the class attribute has the exact given `className` value.
+        /// </summary>
+        /// <param name="className">The exact value of the class attribute.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereClass(string className) => Append($"[@class='{className}']");
+
+        /// <summary>
+        /// Selects elements where the id attribute has the exact given `id` value.
+        /// </summary>
+        /// <param name="id">The exact value of the id attribute.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereId(string id) => Append($"[@id='{id}']");
+        #endregion
+
+        #region Position
+        /// <summary>
+        /// Selects the element at index `i`.
+        /// </summary>
+        /// <param name="i">The index of the elmenet to select.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder Index(int i) => Append($"[{i}]");
+
+        /// <summary>
+        /// Selects the element with the given index.
+        /// </summary>
+        /// <param name="i">The index of the element to select.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereIndex(int i)
         {
-            return sb.ToString();
+            if (i < 1)
+            {
+                throw new Exception("The index needs to be greater than 0.");
+            }
+            return Index(i);
         }
 
-        public XPathBuilder WhereAttributeEquals(string attributeName, string attributeValue)
+        /// <summary>
+        /// Selects the first element.
+        /// </summary>
+        /// <param name="element">The element to select.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder First() => Append("[1]");
+
+        /// <summary>
+        /// Selects the first `n` number of elements.
+        /// </summary>
+        /// <param name="n">The number of elements to select.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder First(int n)
         {
-            var fmt = "[@{0}='{1}']";
-            sb.Append(string.Format(fmt, attributeName, attributeValue));
-            return this;
+            if (n < 1)
+            {
+                throw new Exception("The number needs to be greater than 0.");
+            }
+            return Append($"[position()<{n + 1}]");
         }
 
-        public XPathBuilder WhereClass(string className)
+        /// <summary>
+        /// Selects the last element.
+        /// </summary>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereLast() => Append("[last()]");
+
+        /// <summary>
+        /// Selects the element `n` elements before the last element.
+        /// </summary>
+        /// <param name="n">The number of elements before the last element to select.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereLastMinus(int n)
         {
-            var fmt = "[@class='{0}']";
-            sb.Append(string.Format(fmt, className));
-            return this;
+            if (n < 1)
+            {
+                throw new Exception("The number needs to be greater than 0.");
+            }
+            return Append($"[last()-{n}]");
         }
+        #endregion
 
-        public XPathBuilder WhereId(string id)
-        {
-            var fmt = "[@id='{0}']";
-            sb.Append(string.Format(fmt, id));
-            return this;
-        }
+        #region InnerText
+        /// <summary>
+        /// Selects elements where the innerText has the given value.
+        /// </summary>
+        /// <param name="value">The exact value of the innerText.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereInnerTextEquals(string value) => Append($"[@text()='{value}']");
 
-        public XPathBuilder WhereIndex(int number)
-        {
-            if (number < 1)
-                throw new Exception("The number need to be greaten 0");
+        /// <summary>
+        /// Selects elements whose innerText contains the given value.
+        /// </summary>
+        /// <param name="value">The value that should be contained in the element's innerText.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereInnerTextContains(string value) => Append($"[contains(text(), '{value}')]");
 
-            sb.Append("[" + number + "]");
-            return this;
-        }
-
-        public XPathBuilder WhereInnerTextEquals(string value)
-        {
-            var fmt = "[@text()='{0}']";
-            sb.Append(string.Format(fmt, value));
-            return this;
-        }
-
-        public XPathBuilder WhereInnerTextContains(string value)
-        {
-            var fmt = "[contains(text(), '{0}')]";
-            sb.Append(string.Format(fmt, value));
-            return this;
-        }
-
-        public XPathBuilder WhereLast()
-        {
-            sb.Append("[last()]");
-            return this;
-        }
-
-        public XPathBuilder WhereLastMinus(int number)
-        {
-            if (number < 1)
-                throw new Exception("The number need to be greaten 0");
-
-            sb.Append("[last()-" + number + "]");
-            return this;
-        }
-
-        public XPathBuilder WhereNotInnerTextContains(string value)
-        {
-            var fmt = "[not(contains(text(), '{0}'))]";
-            sb.Append(string.Format(fmt, value));
-            return this;
-        }
-
-        public XPathBuilder WhereStartWith(string attributeName, string attributeValue)
-        {
-            var fmt = "[starts-with(@{0}='{1}')])";
-            sb.Append(string.Format(fmt, attributeName, attributeValue));
-            return this;
-        }
+        /// <summary>
+        /// Selects elements whose innerText does not contain the given value.
+        /// </summary>
+        /// <param name="value">The value that should not be contained in the element's innerText.</param>
+        /// <returns>This XPathBuilder instance.</returns>
+        public XPathBuilder WhereNotInnerTextContains(string value) => Append($"[not(contains(text(), '{value}'))]");
+        #endregion
     }
 }
