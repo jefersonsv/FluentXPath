@@ -9,6 +9,7 @@ namespace FluentXPath
     /// </summary>
     public class XPathBuilder
     {
+        private int groups;
         private StringBuilder sb = new StringBuilder();
 
         private XPathBuilder Append(string value)
@@ -43,13 +44,24 @@ namespace FluentXPath
         /// <summary>
         /// Implicit conversion to string.
         /// </summary>
-        public static implicit operator string(XPathBuilder builder) => builder.ToString();
+        public static implicit operator string(XPathBuilder builder)
+        {
+            if (builder.groups > 0)
+                throw new Exception("One or more groups are opened");
+
+            return builder.ToString();
+        }
 
         /// <summary>
         /// Builds the XPath string.
         /// </summary>
         /// <returns>The XPath string.</returns>
-        public override string ToString() => sb.ToString();
+        public override string ToString() {
+            if (groups > 0)
+                throw new Exception("One or more groups are opened");
+
+            return sb.ToString();
+        }
 
         /// <summary>
         /// Selects all immediate child elements.
@@ -113,14 +125,7 @@ namespace FluentXPath
         /// </summary>
         /// <param name="attributeName">The attribute name that matching elments should have.</param>
         /// <returns>This XPathBuilder instance.</returns>
-        public XPathBuilder Attributes(string attributeName) => WhereAttributeHasValue(attributeName);
-
-        /// <summary>
-        /// Selects all elements that include the specified attribute name.
-        /// </summary>
-        /// <param name="attributeName">The attribute name that matching elments should have.</param>
-        /// <returns>This XPathBuilder instance.</returns>
-        public XPathBuilder WhereAttributeHasValue(string attributeName) => Append($"/@{attributeName}");
+        public XPathBuilder ContainsAttribute(string attributeName) => Append($"/@{attributeName}");
 
         /// <summary>
         /// Selects elements where the given `attributeName` has the exact given `attributeValue`.
@@ -179,6 +184,31 @@ namespace FluentXPath
                 throw new Exception("The index needs to be greater than 0.");
             }
             return Index(i);
+        }
+
+        /// <summary>
+        /// Start a group of Xpath
+        /// </summary>
+        /// <returns></returns>
+        public XPathBuilder StartGroup()
+        {
+            groups++;
+            return Append("(");
+        }
+
+        /// <summary>
+        /// End a group of Xpath
+        /// </summary>
+        /// <returns></returns>
+        public XPathBuilder EndGroup()
+        {
+            groups--;
+            if (groups < 0)
+            {
+                throw new Exception("There is no group to be closed.");
+            }
+
+            return Append(")");
         }
 
         /// <summary>

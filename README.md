@@ -22,5 +22,4 @@ string xpath = new XPathBuilder()
 - [Microsoft](https://msdn.microsoft.com/en-us/library/ms256086.aspx)
 - [Rawgit](https://rawgit.com/)
 - [w3schools](http://www.w3schools.com/xml/xpath_syntax.asp)
-- [Myself: Jeferson Tenorio](https://br.linkedin.com/in/jefersontenorio)
-- Thanks for all :smile:
+- [Jeferson Tenorio](https://br.linkedin.com/in/jefersontenorio) :smile:
