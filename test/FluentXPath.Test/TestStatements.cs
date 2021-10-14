@@ -5,7 +5,7 @@ namespace FluentXPath.Test
     public class Tests
     {
         [Test]
-        public void TestOrStatment()
+        public void TestOrStatement()
         {
             string xpath = new XPathBuilder()
                 .Elements("a")
