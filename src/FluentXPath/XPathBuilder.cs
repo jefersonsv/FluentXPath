@@ -51,7 +51,6 @@ namespace FluentXPath
         /// <returns>The XPath string.</returns>
         public override string ToString() => sb.ToString();
 
-        #region General
         /// <summary>
         /// Selects all immediate child elements.
         /// </summary>
@@ -87,9 +86,7 @@ namespace FluentXPath
         /// </summary>
         /// <returns>This XPathBuilder instance.</returns>
         public XPathBuilder Or() => Append("|");
-        #endregion
 
-        #region Elements
         /// <summary>
         /// Selects immediate matching elements.
         /// </summary>
@@ -110,9 +107,7 @@ namespace FluentXPath
         /// <param name="element">The element to select.</param>
         /// <returns>This XPathBuilder instance.</returns>
         public XPathBuilder ElementsDescend(string element) => Append("//" + element);
-        #endregion
 
-        #region Attributes
         /// <summary>
         /// Selects all elements that include the specified attribute name.
         /// </summary>
@@ -164,9 +159,7 @@ namespace FluentXPath
         /// <param name="id">The exact value of the id attribute.</param>
         /// <returns>This XPathBuilder instance.</returns>
         public XPathBuilder WhereId(string id) => Append($"[@id='{id}']");
-        #endregion
 
-        #region Position
         /// <summary>
         /// Selects the element at index `i`.
         /// </summary>
@@ -228,9 +221,7 @@ namespace FluentXPath
             }
             return Append($"[last()-{n}]");
         }
-        #endregion
 
-        #region InnerText
         /// <summary>
         /// Selects elements where the innerText has the given value.
         /// </summary>
@@ -251,6 +242,5 @@ namespace FluentXPath
         /// <param name="value">The value that should not be contained in the element's innerText.</param>
         /// <returns>This XPathBuilder instance.</returns>
         public XPathBuilder WhereNotInnerTextContains(string value) => Append($"[not(contains(text(), '{value}'))]");
-        #endregion
     }
 }
